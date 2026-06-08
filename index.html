@@ -2,73 +2,105 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Milena Thought</title>
-
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Milena Thought Builder Pro</title>
 <style>
-body{
-    margin:0;
-    background:#0f172a;
-    color:white;
-    font-family:Arial,sans-serif;
-    text-align:center;
-}
-
-header{
-    padding:80px 20px;
-}
-
-h1{
-    font-size:3em;
-    margin-bottom:10px;
-}
-
-p{
-    font-size:1.2em;
-    color:#cbd5e1;
-}
-
-.button{
-    display:inline-block;
-    margin-top:25px;
-    padding:12px 25px;
-    background:#2563eb;
-    color:white;
-    text-decoration:none;
-    border-radius:10px;
-}
-
-section{
-    padding:50px 20px;
-}
-
-.card{
-    background:#1e293b;
-    margin:auto;
-    max-width:600px;
-    padding:25px;
-    border-radius:15px;
-}
+body{margin:0;font-family:Arial;background:#111827;color:white;display:flex;height:100vh}
+#sidebar{width:280px;background:#0f172a;padding:20px;overflow:auto}
+#preview{flex:1;background:#f8fafc;color:#111;padding:20px;overflow:auto}
+button{width:100%;padding:12px;margin:6px 0;border:none;border-radius:8px;cursor:pointer}
+.block{background:white;padding:15px;margin:10px 0;border-radius:10px}
+.hero{background:#312e81;color:white;padding:40px;border-radius:15px}
+img{max-width:100%}
 </style>
 </head>
-
 <body>
-
-<header>
-<h1>Milena Thought</h1>
-<p>Official Website</p>
-<a class="button" href="#">Mehr erfahren</a>
-</header>
-
-<section>
-<div class="card">
-<h2>Willkommen</h2>
-<p>
-Willkommen auf der offiziellen Website von Milena Thought.
-Hier entstehen Ideen, Projekte und kreative Inhalte.
-</p>
+<div id="sidebar">
+<h2>Milena Thought Builder</h2>
+<button onclick="addHero()">Hero Bereich</button>
+<button onclick="addTitle()">Titel</button>
+<button onclick="addText()">Text</button>
+<button onclick="addImage()">Bild</button>
+<button onclick="addGallery()">Galerie</button>
+<button onclick="addVideo()">YouTube Video</button>
+<button onclick="toggleLang()">DE / EN</button>
+<button onclick="exportSite()">Website exportieren</button>
+<p>Texte anklicken und direkt bearbeiten.</p>
 </div>
-</section>
 
+<div id="preview">
+<div class="hero">
+<h1 contenteditable="true">Milena Thought</h1>
+<p contenteditable="true">Musik • Kreativität • Projekte</p>
+</div>
+</div>
+
+<script>
+let de=true;
+
+function addTitle(){
+ let e=document.createElement('h2');
+ e.contentEditable=true;
+ e.className='block';
+ e.innerText='Neuer Titel';
+ preview.appendChild(e);
+}
+
+function addText(){
+ let e=document.createElement('p');
+ e.contentEditable=true;
+ e.className='block';
+ e.innerText='Neuer Text';
+ preview.appendChild(e);
+}
+
+function addImage(){
+ let url=prompt("Bild URL eingeben");
+ if(!url)return;
+ let e=document.createElement('img');
+ e.src=url;
+ e.className='block';
+ preview.appendChild(e);
+}
+
+function addGallery(){
+ let d=document.createElement('div');
+ d.className='block';
+ d.contentEditable=true;
+ d.innerHTML='<h3>Galerie</h3><p>Bildlinks hier einfügen</p>';
+ preview.appendChild(d);
+}
+
+function addVideo(){
+ let url=prompt("YouTube Einbettungslink");
+ if(!url)return;
+ let iframe=document.createElement('iframe');
+ iframe.src=url;
+ iframe.width='560';
+ iframe.height='315';
+ iframe.className='block';
+ preview.appendChild(iframe);
+}
+
+function addHero(){
+ let d=document.createElement('div');
+ d.className='hero';
+ d.innerHTML='<h1 contenteditable="true">Neue Sektion</h1><p contenteditable="true">Text bearbeiten</p>';
+ preview.appendChild(d);
+}
+
+function toggleLang(){
+ alert("Später können deutsche und englische Texte eingetragen werden.");
+}
+
+function exportSite(){
+ const html='<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Milena Thought</title></head><body>'+preview.innerHTML+'</body></html>';
+ const blob=new Blob([html],{type:'text/html'});
+ const a=document.createElement('a');
+ a.href=URL.createObjectURL(blob);
+ a.download='milena-thought-website.html';
+ a.click();
+}
+</script>
 </body>
 </html>
