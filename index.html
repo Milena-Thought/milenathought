@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+html<!DOCTYPE html>
 <html lang="de">
 <head>
     <meta charset="UTF-8">
@@ -31,7 +31,7 @@
             overflow: hidden;
         }
 
-        /* Sidebar Styling */
+        /* Sidebar Panel */
         #sidebar {
             width: 320px;
             background: var(--bg-sidebar);
@@ -44,11 +44,11 @@
         }
 
         #sidebar h2 {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 700;
-            margin-bottom: 8px;
+            margin-bottom: 4px;
             color: #fff;
-            letter-spacing: -0.025em;
+            letter-spacing: -0.02em;
         }
 
         #sidebar p.hint {
@@ -58,6 +58,7 @@
             line-height: 1.4;
         }
 
+        /* Edle Buttons */
         button {
             width: 100%;
             padding: 12px 16px;
@@ -70,17 +71,25 @@
             font-size: 0.95rem;
             text-align: left;
             transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         button:hover {
             background: var(--border);
             border-color: var(--text-muted);
+            transform: translateY(-1px);
+        }
+
+        button:active {
+            transform: translateY(0);
         }
 
         button.btn-primary {
             background: var(--accent);
             border-color: var(--accent);
-            text-align: center;
+            justify-content: center;
             margin-top: auto;
             font-weight: 600;
         }
@@ -90,7 +99,7 @@
             border-color: var(--accent-hover);
         }
 
-        /* Preview Area Styling */
+        /* Live Vorschau Bereich */
         #preview {
             flex: 1;
             background: var(--bg-main);
@@ -99,27 +108,31 @@
             display: flex;
             flex-direction: column;
             gap: 24px;
+            max-width: 900px;
+            margin: 0 auto;
         }
 
-        /* Elemente-Design innerhalb der Website */
+        /* Design-Blöcke der generierten Webseite */
         .hero {
             background: linear-gradient(135deg, #1e1b4b 0%, #311042 100%);
             border: 1px solid #4338ca;
             color: white;
             padding: 48px;
             border-radius: 16px;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+            transition: border-color 0.2s;
         }
 
         .hero h1 {
-            font-size: 2.5rem;
+            font-size: 2.6rem;
             font-weight: 800;
             margin-bottom: 8px;
             outline: none;
+            letter-spacing: -0.03em;
         }
 
         .hero p {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             color: #c7d2fe;
             outline: none;
         }
@@ -132,17 +145,22 @@
             line-height: 1.6;
             color: var(--text-main);
             outline: none;
-            transition: border-color 0.2s ease;
+            font-size: 1.05rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
 
-        .block:focus, .hero [contenteditable="true"]:focus {
+        /* Fokus-Rahmen beim Bearbeiten */
+        .block:focus, .hero h1:focus, .hero p:focus {
             border-color: var(--accent);
-            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+            background: #253043;
         }
 
         h2.block {
-            font-size: 1.8rem;
+            font-size: 1.75rem;
             font-weight: 700;
+            letter-spacing: -0.02em;
         }
 
         img.block {
@@ -151,6 +169,7 @@
             max-width: 100%;
             height: auto;
             display: block;
+            border-radius: 12px;
         }
 
         iframe.block {
@@ -158,9 +177,9 @@
             border: none;
             aspect-ratio: 16 / 9;
             width: 100%;
-            max-width: 800px;
             height: auto;
             border-radius: 12px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
         }
 
         mark {
@@ -168,24 +187,29 @@
             color: white;
             padding: 2px 6px;
             border-radius: 4px;
+            font-weight: 600;
         }
 
-        /* Listen-Styling für den Steckbrief */
+        /* Listen-Design für den Steckbrief */
         .block ul {
-            margin-top: 12px;
-            padding-left: 20px;
+            margin-top: 14px;
+            padding-left: 24px;
         }
 
         .block li {
-            margin-bottom: 6px;
+            margin-bottom: 8px;
+        }
+        
+        .block li strong {
+            color: #c7d2fe;
         }
     </style>
 </head>
 <body>
 
 <div id="sidebar">
-    <h2>Thought Builder</h2>
-    <p class="hint">Klicke Elemente an, um sie direkt zu bearbeiten. Texte aus der Zwischenablage werden automatisch bereinigt.</p>
+    <h2>Thought Builder Pro</h2>
+    <p class="hint">Texte anklicken und direkt schreiben. Eingefügter Text wird automatisch von HTML-Code gesäubert.</p>
     
     <button onclick="addHero()">⚡ Hero Bereich</button>
     <button onclick="addTitle()">📝 Große Überschrift</button>
@@ -198,7 +222,7 @@
 </div>
 
 <div id="preview">
-    <!-- Startinhalt der Webseite -->
+    <!-- Vorgefertigter, sauberer Inhalt -->
     <div class="hero">
         <h1 contenteditable="true">Milena Thought</h1>
         <p contenteditable="true">Musik • Kreativität • Projekte</p>
@@ -224,7 +248,7 @@
 <script>
     const preview = document.getElementById('preview');
 
-    // Sicherheitsfunktion: Verhindert das Einschleusen von Google-Code beim Einfügen (Paste)
+    // Schutz vor Code-Müll: Wandelt Formatiertes beim Einfügen (Strg+V) in sauberen Text um
     preview.addEventListener('paste', function(e) {
         e.preventDefault();
         const text = (e.originalEvent || e).clipboardData.getData('text/plain');
@@ -243,12 +267,12 @@
         let e = document.createElement('p');
         e.contentEditable = true;
         e.className = 'block';
-        e.innerText = 'Hier neuen Text eintragen...';
+        e.innerText = 'Hier neuen Textabsatz eintragen...';
         preview.appendChild(e);
     }
 
     function addImage(){
-        let url = prompt("Bild URL eingeben:");
+        let url = prompt("Bild-URL eingeben:");
         if(!url) return;
         let e = document.createElement('img');
         e.src = url;
@@ -257,10 +281,10 @@
     }
 
     function addVideo(){
-        let url = prompt("YouTube Link oder Einbettungslink eingeben:");
+        let url = prompt("YouTube Link eingeben:");
         if(!url) return;
         
-        // Konvertiert normale YouTube-Links automatisch in Einbettungs-Links
+        // Repariert normale YouTube-Links für Iframes automatisch
         if(url.includes("watch?v=")) {
             url = url.replace("watch?v=", "embed/");
         } else if(url.includes("youtu.be/")) {
@@ -277,16 +301,16 @@
     function addHero(){
         let d = document.createElement('div');
         d.className = 'hero';
-        d.innerHTML = '<h1 contenteditable="true">Neue Sektion</h1><p contenteditable="true">Untertitel oder Slogantext bearbeiten</p>';
+        d.innerHTML = '<h1 contenteditable="true">Neue Sektion</h1><p contenteditable="true">Untertitel oder Slogan bearbeiten</p>';
         preview.appendChild(d);
     }
 
     function toggleLang(){
-        alert("Mehrsprachigkeit (DE/EN) wird in einer zukünftigen Version unterstützt.");
+        alert("Die Sprachumschaltung wird in einer zukünftigen Version implementiert.");
     }
 
     function exportSite(){
-        // Generiert eine saubere HTML-Datei inklusive des neuen Dark-Mode-Designs
+        // Erstellt das finale HTML-Dokument inklusive des modernen CSS-Stylesheets
         const html = `<!DOCTYPE html>
 <html lang="de">
 <head>
@@ -295,20 +319,4 @@
     <title>Milena Thought</title>
     <style>
         body { font-family: sans-serif; background: #0b0f19; color: #f9fafb; padding: 40px; display: flex; flex-direction: column; gap: 24px; max-width: 900px; margin: 0 auto; }
-        .hero { background: linear-gradient(135deg, #1e1b4b 0%, #311042 100%); border: 1px solid #4338ca; padding: 48px; border-radius: 16px; }
-        .hero h1 { font-size: 2.5rem; margin-bottom: 8px; }
-        .hero p { color: #c7d2fe; font-size: 1.1rem; }
-        .block { background: #1f2937; border: 1px solid #374151; padding: 24px; border-radius: 12px; line-height: 1.6; }
-        mark { background: #6366f1; color: white; padding: 2px 6px; border-radius: 4px; }
-        ul { margin-top: 12px; padding-left: 20px; }
-        li { margin-bottom: 6px; }
-        img.block { max-width: 100%; height: auto; border-radius: 12px; }
-        iframe.block { border: none; aspect-ratio: 16/9; width: 100%; border-radius: 12px; }
-    </style>
-</head>
-<body>
-    ${preview.innerHTML}
-</body>
-</html>`;
-
-Verwende Code mit Vorsicht.// Entfernt die Editierbarkeit im exportierten Codeconst cleanHtml = html.replaceAll('contenteditable="true"', '');const blob = new Blob([cleanHtml], {type: 'text/html'});const a = document.createElement('a');a.href = URL.createObjectURL(blob);a.download = 'milena-thought-website.html';a.click();}
+Verwende Code mit Vorsicht..hero { background: linear-gradient(135deg, #1e1b4b 0%, #311042 100%); border: 1px solid #4338ca; padding: 48px; border-radius: 16px; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.4); }.hero h1 { font-size: 2.6rem; margin-bottom: 8px; font-weight: 800; letter-spacing: -0.03em; }.hero p { color: #c7d2fe; font-size: 1.15rem; }.block { background: #1f2937; border: 1px solid #374151; padding: 24px; border-radius: 12px; line-height: 1.6; font-size: 1.05rem; }h2.block { font-size: 1.75rem; font-weight: 700; }mark { background: #6366f1; color: white; padding: 2px 6px; border-radius: 4px; font-weight: 600; }ul { margin-top: 14px; padding-left: 24px; }li { margin-bottom: 8px; }li strong { color: #c7d2fe; }img.block { max-width: 100%; height: auto; border-radius: 12px; display: block; }iframe.block { border: none; aspect-ratio: 16/9; width: 100%; border-radius: 12px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3); }${preview.innerHTML}`;// Entfernt sauber die Editier-Attribute für die Live-Seiteconst cleanHtml = html.replaceAll('contenteditable="true"', '');const blob = new Blob([cleanHtml], {type: 'text/html'});const a = document.createElement('a');a.href = URL.createObjectURL(blob);a.download = 'milena-thought-website.html';a.click();}
