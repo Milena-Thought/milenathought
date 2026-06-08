@@ -1,125 +1,314 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Milena Thought Builder Pro</title>
-<style>
-body{margin:0;font-family:Arial;background:#111827;color:white;display:flex;height:100vh}
-#sidebar{width:280px;background:#0f172a;padding:20px;overflow:auto}
-#preview{flex:1;background:#f8fafc;color:#111;padding:20px;overflow:auto}
-button{width:100%;padding:12px;margin:6px 0;border:none;border-radius:8px;cursor:pointer}
-.block{background:white;padding:15px;margin:10px 0;border-radius:10px}
-.hero{background:#312e81;color:white;padding:40px;border-radius:15px}
-img{max-width:100%}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Milena Thought Builder Pro</title>
+    <style>
+        :root {
+            --bg-main: #0b0f19;
+            --bg-sidebar: #111827;
+            --bg-card: #1f2937;
+            --text-main: #f9fafb;
+            --text-muted: #9ca3af;
+            --accent: #6366f1;
+            --accent-hover: #4f46e5;
+            --border: #374151;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: var(--bg-main);
+            color: var(--text-main);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Sidebar Styling */
+        #sidebar {
+            width: 320px;
+            background: var(--bg-sidebar);
+            border-right: 1px solid var(--border);
+            padding: 24px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        #sidebar h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #fff;
+            letter-spacing: -0.025em;
+        }
+
+        #sidebar p.hint {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            line-height: 1.4;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px 16px;
+            background: var(--bg-card);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.95rem;
+            text-align: left;
+            transition: all 0.2s ease;
+        }
+
+        button:hover {
+            background: var(--border);
+            border-color: var(--text-muted);
+        }
+
+        button.btn-primary {
+            background: var(--accent);
+            border-color: var(--accent);
+            text-align: center;
+            margin-top: auto;
+            font-weight: 600;
+        }
+
+        button.btn-primary:hover {
+            background: var(--accent-hover);
+            border-color: var(--accent-hover);
+        }
+
+        /* Preview Area Styling */
+        #preview {
+            flex: 1;
+            background: var(--bg-main);
+            padding: 40px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        /* Elemente-Design innerhalb der Website */
+        .hero {
+            background: linear-gradient(135deg, #1e1b4b 0%, #311042 100%);
+            border: 1px solid #4338ca;
+            color: white;
+            padding: 48px;
+            border-radius: 16px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            outline: none;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: #c7d2fe;
+            outline: none;
+        }
+
+        .block {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 24px;
+            border-radius: 12px;
+            line-height: 1.6;
+            color: var(--text-main);
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        .block:focus, .hero [contenteditable="true"]:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+        }
+
+        h2.block {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        img.block {
+            padding: 0;
+            overflow: hidden;
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        iframe.block {
+            padding: 0;
+            border: none;
+            aspect-ratio: 16 / 9;
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            border-radius: 12px;
+        }
+
+        mark {
+            background: var(--accent);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        /* Listen-Styling für den Steckbrief */
+        .block ul {
+            margin-top: 12px;
+            padding-left: 20px;
+        }
+
+        .block li {
+            margin-bottom: 6px;
+        }
+    </style>
 </head>
 <body>
+
 <div id="sidebar">
-<h2>Milena Thought Builder</h2>
-<button onclick="addHero()">Hero Bereich</button>
-<button onclick="addTitle()">Titel</button>
-<button onclick="addText()">Text</button>
-<button onclick="addImage()">Bild</button>
-<button onclick="addGallery()">Galerie</button>
-<button onclick="addVideo()">YouTube Video</button>
-<button onclick="toggleLang()">DE / EN</button>
-<button onclick="exportSite()">Website exportieren</button>
-<p>Texte anklicken und direkt bearbeiten.</p>
+    <h2>Thought Builder</h2>
+    <p class="hint">Klicke Elemente an, um sie direkt zu bearbeiten. Texte aus der Zwischenablage werden automatisch bereinigt.</p>
+    
+    <button onclick="addHero()">⚡ Hero Bereich</button>
+    <button onclick="addTitle()">📝 Große Überschrift</button>
+    <button onclick="addText()">✍️ Textabsatz</button>
+    <button onclick="addImage()">🖼️ Bild hinzufügen</button>
+    <button onclick="addVideo()">🎬 YouTube Video</button>
+    <button onclick="toggleLang()">🌐 Sprache: DE / EN</button>
+    
+    <button class="btn-primary" onclick="exportSite()">💾 Website exportieren</button>
 </div>
 
 <div id="preview">
-<div class="hero">
-<h1 contenteditable="true">Milena Thought</h1>
-<p contenteditable="true">Musik • Kreativität • Projekte</p>
-</div>
+    <!-- Startinhalt der Webseite -->
+    <div class="hero">
+        <h1 contenteditable="true">Milena Thought</h1>
+        <p contenteditable="true">Musik • Kreativität • Projekte</p>
+    </div>
+    
+    <p contenteditable="true" class="block">
+        <mark>Milena Thought</mark> ist der Künstlername einer unabhängigen deutschen Musikproduzentin, Singer-Songwriterin und digitalen Schöpferin aus Karlsruhe.
+    </p>
+    
+    <p contenteditable="true" class="block">
+        Sie kreiert und produziert ihre Musik komplett eigenständig im Homestudio mit der Software Ableton Live. Stilistisch bewegt sie sich in einer Nische aus experimenteller elektronischer Musik, Indie-Pop, Dark Wave und Gothic Rock. Ihre Songs zeichnen sich durch emotionale, tiefgründige Liedtexte sowie atmosphärische Klangeigenschaften und eingängige Melodien aus.
+    </p>
+
+    <div contenteditable="true" class="block">
+        <strong>Steckbrief &amp; Musikalische Eckpunkte</strong>
+        <ul>
+            <li><strong>Herkunft:</strong> Karlsruhe, Deutschland</li>
+            <li><strong>Arbeitsweise:</strong> Do-It-Yourself (Schreiben, Gesang, Sounddesign &amp; Produktion)</li>
+        </ul>
+    </div>
 </div>
 
 <script>
-let de=true;
+    const preview = document.getElementById('preview');
 
-function addTitle(){
- let e=document.createElement('h2');
- e.contentEditable=true;
- e.className='block';
- e.innerText='Neuer Titel';
- preview.appendChild(e);
-}
+    // Sicherheitsfunktion: Verhindert das Einschleusen von Google-Code beim Einfügen (Paste)
+    preview.addEventListener('paste', function(e) {
+        e.preventDefault();
+        const text = (e.originalEvent || e).clipboardData.getData('text/plain');
+        document.execCommand('insertText', false, text);
+    });
 
-function addText(){
- let e=document.createElement('p');
- e.contentEditable=true;
- e.className='block';
- e.innerText='Neuer Text';
- preview.appendChild(e);
-}
+    function addTitle(){
+        let e = document.createElement('h2');
+        e.contentEditable = true;
+        e.className = 'block';
+        e.innerText = 'Neue Überschrift';
+        preview.appendChild(e);
+    }
 
-function addImage(){
- let url=prompt("Bild URL eingeben");
- if(!url)return;
- let e=document.createElement('img');
- e.src=url;
- e.className='block';
- preview.appendChild(e);
-}
+    function addText(){
+        let e = document.createElement('p');
+        e.contentEditable = true;
+        e.className = 'block';
+        e.innerText = 'Hier neuen Text eintragen...';
+        preview.appendChild(e);
+    }
 
-function addGallery(){
- let d=document.createElement('div');
- d.className='block';
- d.contentEditable=true;
- d.innerHTML='<h3>Galerie</h3><p>Bildlinks hier einfügen</p>';
- preview.appendChild(d);
-}
+    function addImage(){
+        let url = prompt("Bild URL eingeben:");
+        if(!url) return;
+        let e = document.createElement('img');
+        e.src = url;
+        e.className = 'block';
+        preview.appendChild(e);
+    }
 
-function addVideo(){
- let url=prompt("YouTube Einbettungslink");
- if(!url)return;
- let iframe=document.createElement('iframe');
- iframe.src=url;
- iframe.width='560';
- iframe.height='315';
- iframe.className='block';
- preview.appendChild(iframe);
-}
+    function addVideo(){
+        let url = prompt("YouTube Link oder Einbettungslink eingeben:");
+        if(!url) return;
+        
+        // Konvertiert normale YouTube-Links automatisch in Einbettungs-Links
+        if(url.includes("watch?v=")) {
+            url = url.replace("watch?v=", "embed/");
+        } else if(url.includes("youtu.be/")) {
+            url = url.replace("youtu.be/", "://youtube.com");
+        }
+        
+        let iframe = document.createElement('iframe');
+        iframe.src = url;
+        iframe.className = 'block';
+        iframe.setAttribute('allowfullscreen', 'true');
+        preview.appendChild(iframe);
+    }
 
-function addHero(){
- let d=document.createElement('div');
- d.className='hero';
- d.innerHTML='<h1 contenteditable="true">Neue Sektion</h1><p contenteditable="true">Text bearbeiten</p>';
- preview.appendChild(d);
-}
+    function addHero(){
+        let d = document.createElement('div');
+        d.className = 'hero';
+        d.innerHTML = '<h1 contenteditable="true">Neue Sektion</h1><p contenteditable="true">Untertitel oder Slogantext bearbeiten</p>';
+        preview.appendChild(d);
+    }
 
-function toggleLang(){
- alert("Später können deutsche und englische Texte eingetragen werden.");
-}
+    function toggleLang(){
+        alert("Mehrsprachigkeit (DE/EN) wird in einer zukünftigen Version unterstützt.");
+    }
 
-function exportSite(){
- const html='<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Milena Thought</title></head><body>'+preview.innerHTML+'</body></html>';
- const blob=new Blob([html],{type:'text/html'});
- const a=document.createElement('a');
- a.href=URL.createObjectURL(blob);
- a.download='milena-thought-website.html';
- a.click();
-}
-</script>
+    function exportSite(){
+        // Generiert eine saubere HTML-Datei inklusive des neuen Dark-Mode-Designs
+        const html = `<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Milena Thought</title>
+    <style>
+        body { font-family: sans-serif; background: #0b0f19; color: #f9fafb; padding: 40px; display: flex; flex-direction: column; gap: 24px; max-width: 900px; margin: 0 auto; }
+        .hero { background: linear-gradient(135deg, #1e1b4b 0%, #311042 100%); border: 1px solid #4338ca; padding: 48px; border-radius: 16px; }
+        .hero h1 { font-size: 2.5rem; margin-bottom: 8px; }
+        .hero p { color: #c7d2fe; font-size: 1.1rem; }
+        .block { background: #1f2937; border: 1px solid #374151; padding: 24px; border-radius: 12px; line-height: 1.6; }
+        mark { background: #6366f1; color: white; padding: 2px 6px; border-radius: 4px; }
+        ul { margin-top: 12px; padding-left: 20px; }
+        li { margin-bottom: 6px; }
+        img.block { max-width: 100%; height: auto; border-radius: 12px; }
+        iframe.block { border: none; aspect-ratio: 16/9; width: 100%; border-radius: 12px; }
+    </style>
+</head>
+<body>
+    ${preview.innerHTML}
 </body>
-</html>
+</html>`;
 
-<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Milena Thought</title></head><body>
-<div class="hero">
-<h1 contenteditable="true">Milena Thought</h1>
-<p contenteditable="true"><br></p>
-</div>
-<p contenteditable="true" class="block"><span data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 14px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);" style="font-family: Google Sans, Arial, sans-serif; font-size: 14px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);"><div class="qJYHHd mp0vvc" data-xid="aim-mars-turn-root" data-asrc="true" style="font-family: Google Sans, Arial, sans-serif; font-size: 14px; font-weight: 400; margin: 0px -0.22px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);" data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 14px; font-weight: 400; margin: 0px -0.22px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);"><div data-tr-rsts="false" class="tonYlb" data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 14px; font-weight: 400; margin: 24px 0px 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);" style="font-family: Google Sans, Arial, sans-serif; font-size: 14px; font-weight: 400; margin: 24px 0px 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);"><div data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 14px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);" style="font-family: Google Sans, Arial, sans-serif; font-size: 14px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);"><div data-streaming-container="" class="" data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 14px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);" style="font-family: Google Sans, Arial, sans-serif; font-size: 14px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);"><div data-processed="true" data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 14px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);" style="font-family: Google Sans, Arial, sans-serif; font-size: 14px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);"><div class="CKgc1d" data-scope-id="turn" data-sfc-root="c" data-sfc-cb="" data-processed="true" data-complete="true" data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 14px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);" style="font-family: Google Sans, Arial, sans-serif; font-size: 14px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);"><div data-subtree="aimc" data-sfc-cp="" data-sfc-root="c" data-sfc-cb="" data-processed="true" data-complete="true" data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 14px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);" style="font-family: Google Sans, Arial, sans-serif; font-size: 14px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);"><div class="Zkbeff" data-sfc-root="c" data-wiz-uids="lOTHcd_3" data-sfc-cb="" data-ved="2ahUKEwizubm1wfaUAxUuzwIHHTu4La0Q2O0OegYIAAgBEAA" data-hveid="CAAIARAA" data-processed="true" data-complete="true" data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 14px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);" style="font-family: Google Sans, Arial, sans-serif; font-size: 14px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);"><div class="pWvJNd" data-sfc-root="c" data-sfc-cb="" data-processed="true" data-complete="true" data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 14px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);" style="font-family: Google Sans, Arial, sans-serif; font-size: 14px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);"><div dir="ltr" data-container-id="main-col" data-xid="VpUvz" class="mZJni Dn7Fzd" data-sfc-root="c" data-sfc-cb="" data-ved="2ahUKEwizubm1wfaUAxUuzwIHHTu4La0Q3KYQegYIAAgBEAE" data-processed="true" data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 14px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);" style="font-family: Google Sans, Arial, sans-serif; font-size: 14px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);"><span data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 14px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);" style="font-family: Google Sans, Arial, sans-serif; font-size: 14px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);"><div class="n6owBd awi2gc" data-sfc-cp="" data-sfc-root="c" data-sfc-cb="" data-hveid="CAAICRAA" data-complete="true" data-processed="true" data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 400; margin: 12px 0px 16px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);" style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 400; margin: 12px 0px 16px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);"><strong class="Yjhzub" data-sfc-root="c" data-sfc-cb="" data-complete="true" data-processed="true" data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 600; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);" style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 600; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);">Milena Thought</strong> ist der <mark class="HxTRcb" data-sfc-root="c" data-wiz-uids="lOTHcd_y" data-sfc-cb="" data-ved="2ahUKEwizubm1wfaUAxUuzwIHHTu4La0QuJAPegYIAAgJEAE" data-complete="true" style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 500; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);" data-sae="" data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 500; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);">Künstlername einer unabhängigen <strong class="Yjhzub" data-sfc-root="c" data-sfc-cb="" data-complete="true" data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 600; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);" style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 600; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);">deutschen Musikproduzentin, Singer-Songwriterin und digitalen Schöpferin</strong> aus Karlsruhe</mark>.<span>&nbsp;</span></div><div class="n6owBd awi2gc" data-sfc-cp="" data-sfc-root="c" data-sfc-cb="" data-hveid="CAAIDRAA" data-complete="true" data-processed="true" data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 400; margin: 12px 0px 16px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);" style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 400; margin: 12px 0px 16px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);">Sie kreiert und produziert ihre Musik komplett eigenständig im Homestudio mit der Software Ableton Live. Stilistisch bewegt sie sich in einer Nische aus <strong class="Yjhzub" data-sfc-root="c" data-sfc-cb="" data-complete="true" data-processed="true" data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 600; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);" style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 600; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);">experimenteller elektronischer Musik, Indie-Pop, Dark Wave und Gothic Rock</strong>. Ihre Songs zeichnen sich durch emotionale, tiefgründige Liedtexte sowie atmosphärische Klanglandschaften und eingängige Melodien aus.<span>&nbsp;</span></div><div class="otQkpb" aria-level="3" role="heading" data-animation-nesting="" data-sfc-cp="" data-sfc-root="c" data-sfc-cb="" data-complete="true" data-processed="true" style="font-family: Google Sans, Arial, sans-serif; font-size: 20px; font-weight: 600; margin: 24px 0px 12px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);" data-sae="" data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 20px; font-weight: 600; margin: 24px 0px 12px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);">Steckbrief &amp; Musikalische Eckpunkte<span></span></div><ul class="KsbFXc U6u95" data-sfc-root="c" data-sfc-cb="" data-complete="true" data-processed="true" data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 400; margin: 12px 0px 16px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);" style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 400; margin: 12px 0px 16px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);"><li class="Z1qcYe" data-sfc-cp="" data-sfc-root="c" data-sfc-cb="" data-hveid="CAAIHBAA" data-complete="true" style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 400; margin: 0px 0px 12px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);" data-sae="" data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 400; margin: 0px 0px 12px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);"><span class="T286Pc" data-sfc-cp="" data-sfc-root="c" data-sfc-cb="" data-complete="true" data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);" style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);"><strong class="Yjhzub" data-sfc-root="c" data-sfc-cb="" data-complete="true" data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 600; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);" style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 600; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);">Herkunft:</strong> Karlsruhe, Deutschland</span></li><li class="Z1qcYe" data-sfc-cp="" data-sfc-root="c" data-sfc-cb="" data-hveid="CAAIHBAB" data-complete="true" style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 400; margin: 0px 0px 12px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);" data-sae="" data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 400; margin: 0px 0px 12px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);"><span class="T286Pc" data-sfc-cp="" data-sfc-root="c" data-sfc-cb="" data-complete="true" data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);" style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);"><strong class="Yjhzub" data-sfc-root="c" data-sfc-cb="" data-complete="true" data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 600; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);" style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 600; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);">Arbeitsweise:</strong> Do-It-Yourself (Schreiben, Gesang, Sounddesign &amp; Produktion)</span></li><li class="Z1qcYe" data-sfc-cp="" data-sfc-root="c" data-sfc-cb="" data-hveid="CAAIHBAC" data-complete="true" style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 400; margin: 0px 0px 12px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);" data-sae="" data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 400; margin: 0px 0px 12px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);"><span class="T286Pc" data-sfc-cp="" data-sfc-root="c" data-sfc-cb="" data-complete="true" data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);" style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);"><strong class="Yjhzub" data-sfc-root="c" data-sfc-cb="" data-complete="true" data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 600; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);" style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 600; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);">Veröffentlichungen:</strong> Alben wie <em class="eujQNb" data-sfc-root="c" data-sfc-cb="" data-complete="true" data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);" style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);">Echo Under Water</em> (2021) und <em class="eujQNb" data-sfc-root="c" data-sfc-cb="" data-complete="true" data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);" style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);">Dark Butterfly</em> (2026) sowie Singles wie <em class="eujQNb" data-sfc-root="c" data-sfc-cb="" data-complete="true" data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);" style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);">A Greeting of Fate</em>.</span></li><li class="Z1qcYe" data-sfc-cp="" data-sfc-root="c" data-sfc-cb="" data-hveid="CAAIHBAD" data-complete="true" style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 400; margin: 0px 0px 12px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);" data-sae="" data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 400; margin: 0px 0px 12px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);"><span class="T286Pc" data-sfc-cp="" data-sfc-root="c" data-sfc-cb="" data-complete="true" data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);" style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);"><strong class="Yjhzub" data-sfc-root="c" data-sfc-cb="" data-complete="true" data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 600; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);" style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 600; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);">Kollaborationen:</strong> Veröffentlichung von Remixen, wie beispielsweise <em class="eujQNb" data-sfc-root="c" data-sfc-cb="" data-complete="true" data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);" style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);">Waves (Milena Thought Remix)</em>.</span></li><li class="Z1qcYe" data-sfc-cp="" data-sfc-root="c" data-sfc-cb="" data-hveid="CAAIHBAE" data-complete="true" style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 400; margin: 0px 0px 12px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);" data-sae="" data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 400; margin: 0px 0px 12px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);"><span class="T286Pc" data-sfc-cp="" data-sfc-root="c" data-sfc-cb="" data-complete="true" data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);" style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);"><strong class="Yjhzub" data-sfc-root="c" data-sfc-cb="" data-complete="true" data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 600; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);" style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 600; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);">Plattformen:</strong> Ihre Werke teilt sie plattformübergreifend auf dem <span class="iNLQDb" data-sfc-cp="" data-sfc-root="c" data-sfc-cb="" data-complete="true" data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);" style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);"><span class="qNqJIe" data-sfc-cp="" data-sfc-root="c" data-sfc-cb="" data-complete="true" data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 500; margin: 0px; text-decoration: underline 1px rgb(21, 88, 214); border-bottom: 0px rgb(21, 88, 214);" style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 500; margin: 0px; text-decoration: underline 1px rgb(21, 88, 214); border-bottom: 0px rgb(21, 88, 214);"><a class="qNqJIe" target="_blank" rel="noopener" data-hveid="CAAIHBAF" href="https://open.spotify.com/intl-de/artist/4ptbZYq9iAukhb6xhScgRg" data-sb="/url?sa=i&amp;source=web&amp;rct=j&amp;url=https://open.spotify.com/intl-de/artist/4ptbZYq9iAukhb6xhScgRg&amp;ved=2ahUKEwizubm1wfaUAxUuzwIHHTu4La0Qy_kOegYIAAgcEAU&amp;opi=89978449&amp;cd&amp;psig=AOvVaw1cqE5hOliAFnZ2gIA96tGP&amp;ust=1780969200061000" data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 500; margin: 0px; text-decoration: underline 1px rgb(21, 88, 214); border-bottom: 0px rgb(21, 88, 214);" style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 500; margin: 0px; text-decoration: underline 1px rgb(21, 88, 214); border-bottom: 0px rgb(21, 88, 214);"><span role="button" tabindex="0" class="VJIUmc" aria-label="Spotify" data-ved="2ahUKEwizubm1wfaUAxUuzwIHHTu4La0Q2oAUegYIAAgcEAY" data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 500; margin: 0px; text-decoration: none; border-bottom: 0px rgb(21, 88, 214);" style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 500; margin: 0px; text-decoration: none; border-bottom: 0px rgb(21, 88, 214);"><span data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 500; margin: 0px; text-decoration: none; border-bottom: 0px rgb(21, 88, 214);" style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 500; margin: 0px; text-decoration: none; border-bottom: 0px rgb(21, 88, 214);"><img id="img-cB0marNBrp6L6A-78LbpCg_23" class="xQj6O" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAACuUlEQVQ4T41Tz2sTURCeebtpt01San+g1mZNS2sLgqfe9NI/wIvYgNVDUkUQoeKlKIJWEMSDeC8iFay0pHoR9Cr446QXQWma1jab2opUg2nS/NjsG2c3zZqGUPoub/l25pvvm5mHUOcEKazJJXEHpBwBgnYnBHETFHhZat68u971ars2DXcBny57Ai3mLFp0pl4BF0OcNzKeURiaMiuYS9T5dcSnKd6fSODdk6TyU0AuI8xDf/pn0o5gB7eV+IqpfZPskBFANjkYbAWcLDlEgVjkBcoqOwgm92YLBOZAgkpIPg5sZmx3KxwpImoMPglhcIUbm4ccAREIdTR5LB0FjFr17PXFI50FgnEuesUdAgc2DPo11ONj96Ekb3CtgmFlWwYUf2NBxZMk5RAK0SGR8hIhrqL8sNozvVAp0Lsc7i+Z8JkJ/ajiQ9RjkThI6iuPmGFbvn0D5Pgu8peHv3ds2arxOyufNPofP9NjY3O8IiHG1lBfCKc4uNUhEhjDRs9wIji1UWutO3mxTWzjOFDpmhvvNp0ytUTvUcHbrPASSTgBQF4WmGXsGwr5NNE7/cZWy0pOsZJ3lWJsg4mqrf3fuAIh/OIRZTixkYgO2qthDwQFvpYqXBdF+MLh2o6TJOpLkQdg0kS5R0TGwDb3JErB1XBDrslSPGZernUfL/Qt/faYlJ0gad0EwqZq66TiI+xaP92s/m3PujIVTIJF9vvSkNvOXWdxVAAhlhVVXF1JLH8MHO7h5SVfJUdo0OQsmL4YiXLy2Xq7U4uRwE3eo44KjgJmEwPT59wnovuKaZ5G2fN+D0Le2Fj1w/Db8hOxT1v8fIvXavhRLXlPPn60oBWPGEefp5z27gqmSVVfTMzw+EN7k+Ccsb5ywVbiWqyXYL8/KuE93uMQWfKAU1GIFAmYJy1zay0QzdXm/QNIJinvPH+wqQAAAABJRU5ErkJggg==" alt="" data-deferred="3" data-imglogged="true" data-aatf="4" style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 500; margin: 0px 2px 2px 0px; text-decoration: none; border-bottom: 0.8px solid rgb(220, 223, 229); object-fit: contain; width: 18px; height: 18px;" data-sae="" data-imgprocessed="true" data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 500; margin: 0px 2px 2px 0px; text-decoration: none; border-bottom: 0.8px solid rgb(220, 223, 229); object-fit: contain; width: 18px; height: 18px;"></span></span>⁠Milena Thought Spotify-Profil</a></span></span>, bei <span class="iNLQDb" data-sfc-cp="" data-sfc-root="c" data-sfc-cb="" data-complete="true" data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);" style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);"><span class="qNqJIe" data-sfc-cp="" data-sfc-root="c" data-sfc-cb="" data-complete="true" data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 500; margin: 0px; text-decoration: underline 1px rgb(21, 88, 214); border-bottom: 0px rgb(21, 88, 214);" style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 500; margin: 0px; text-decoration: underline 1px rgb(21, 88, 214); border-bottom: 0px rgb(21, 88, 214);"><a class="qNqJIe" target="_blank" rel="noopener" data-hveid="CAAIHBAH" href="https://music.apple.com/de/artist/milena-thought/1581495156" data-sb="/url?sa=i&amp;source=web&amp;rct=j&amp;url=https://music.apple.com/de/artist/milena-thought/1581495156&amp;ved=2ahUKEwizubm1wfaUAxUuzwIHHTu4La0Qy_kOegYIAAgcEAc&amp;opi=89978449&amp;cd&amp;psig=AOvVaw1cqE5hOliAFnZ2gIA96tGP&amp;ust=1780969200061000" data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 500; margin: 0px; text-decoration: underline 1px rgb(21, 88, 214); border-bottom: 0px rgb(21, 88, 214);" style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 500; margin: 0px; text-decoration: underline 1px rgb(21, 88, 214); border-bottom: 0px rgb(21, 88, 214);"><span role="button" tabindex="0" class="VJIUmc" aria-label="Apple Music" data-ved="2ahUKEwizubm1wfaUAxUuzwIHHTu4La0Q2oAUegYIAAgcEAg" data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 500; margin: 0px; text-decoration: none; border-bottom: 0px rgb(21, 88, 214);" style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 500; margin: 0px; text-decoration: none; border-bottom: 0px rgb(21, 88, 214);"><span data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 500; margin: 0px; text-decoration: none; border-bottom: 0px rgb(21, 88, 214);" style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 500; margin: 0px; text-decoration: none; border-bottom: 0px rgb(21, 88, 214);"><img id="img-cB0marNBrp6L6A-78LbpCg_24" class="xQj6O" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAACJklEQVQ4T42TP2gUQRTGv9mdvSAcIaYIglhYGjCFUUGwURMIYs7jQIQLKkGCF0WwsrYNghhQMIX/0JBEITnCgUUQG0tJqTZiYZcmCGlyM7eb9/bt7uz9Q7e4233z3m++980bheQx1x9E8evwINAKgb97wLER4M9OmiL/I4eBnd0sFqw9VfwR/2SQ9pL//mKYMldrokQRM6JXrUlRSyAc8323Zq17T/M5r1CAA/Xbv3gIeuEhcPRIlmHL813ZAmIlIfnCuySP/2YBanioJ96W7rg411AHykzNRvC8LpBeXQQGi71Bl29LnAVwLbtgJm8KiIO5vvXHZzGotVxH9HZDvCKPvFoV4dKKANIa6kaZizNiNgdzj64vwZaphbyptO7du4Hw+bv21qhWmQvVdkKSkoE6musCsbekTkCsxhjZPTFcN17CluYkPjAA7O8DQQDv/i2Ei6+dR8l4KHOu0q2ITkFvvYedmJG5ynu3/gK2UhMQx0MqJ++UGZ8WEJNBr3w9SKr+sgJ7qUpJMpz622bWpD1bdoqSIY5BESUr7SOifoPthis4XULE09w0CL5vZXFz6kq8p/I9WqeN6F81x6bEI144cxL61WNXMDoprREsBdlrdxH9+CXqFY0AzzALaZ6YcB6xop+fY1D44RNaj550nFn/TwHxybBH+WuSjH6siNfpxFhZOsnZVPMF5+PnPZrHz/ecpc5h7Ken8Puru6V9Yf9ojiGccgC9QezOtklmGQAAAABJRU5ErkJggg==" alt="" data-deferred="3" data-imglogged="true" data-aatf="4" style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 500; margin: 0px 2px 2px 0px; text-decoration: none; border-bottom: 0.8px solid rgb(220, 223, 229); object-fit: contain; width: 18px; height: 18px;" data-sae="" data-imgprocessed="true" data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 500; margin: 0px 2px 2px 0px; text-decoration: none; border-bottom: 0.8px solid rgb(220, 223, 229); object-fit: contain; width: 18px; height: 18px;"></span></span>⁠Apple Music</a></span></span>, <span class="iNLQDb" data-sfc-cp="" data-sfc-root="c" data-sfc-cb="" data-complete="true" data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);" style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);"><span class="qNqJIe" data-sfc-cp="" data-sfc-root="c" data-sfc-cb="" data-complete="true" data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 500; margin: 0px; text-decoration: underline 1px rgb(21, 88, 214); border-bottom: 0px rgb(21, 88, 214);" style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 500; margin: 0px; text-decoration: underline 1px rgb(21, 88, 214); border-bottom: 0px rgb(21, 88, 214);"><a class="qNqJIe" target="_blank" rel="noopener" data-hveid="CAAIHBAJ" href="https://soundcloud.com/milenathought" data-sb="/url?sa=i&amp;source=web&amp;rct=j&amp;url=https://soundcloud.com/milenathought&amp;ved=2ahUKEwizubm1wfaUAxUuzwIHHTu4La0Qy_kOegYIAAgcEAk&amp;opi=89978449&amp;cd&amp;psig=AOvVaw1cqE5hOliAFnZ2gIA96tGP&amp;ust=1780969200061000" data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 500; margin: 0px; text-decoration: underline 1px rgb(21, 88, 214); border-bottom: 0px rgb(21, 88, 214);" style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 500; margin: 0px; text-decoration: underline 1px rgb(21, 88, 214); border-bottom: 0px rgb(21, 88, 214);"><span role="button" tabindex="0" class="VJIUmc" aria-label="SoundCloud" data-ved="2ahUKEwizubm1wfaUAxUuzwIHHTu4La0Q2oAUegYIAAgcEAo" data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 500; margin: 0px; text-decoration: none; border-bottom: 0px rgb(21, 88, 214);" style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 500; margin: 0px; text-decoration: none; border-bottom: 0px rgb(21, 88, 214);"><span data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 500; margin: 0px; text-decoration: none; border-bottom: 0px rgb(21, 88, 214);" style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 500; margin: 0px; text-decoration: none; border-bottom: 0px rgb(21, 88, 214);"><img id="img-cB0marNBrp6L6A-78LbpCg_25" class="xQj6O" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAABLklEQVQ4T2P878jwn4EKgHHUIIKhSFQYff/HwFDzjIPBT+AXgz0PkIMF4DToyW8GBhlWiA7hi0IoWt/qv8MwCqtBNje5GV79ZmW4pfMBq0EgQXTD4Abt/MjM4M7/F6yR87wQAwuQ/mz4juE/MJWJXEJ1EUjNL6DEX8b/DN/0IZaBDRK4IMggwfqP4arWR4ZbP5kYDK8LMIB8dVjjHYMuJwODGJrXkP31BWjRT4N3EINAYfAPCJ/pfmDY/omZIeo+P9igc1rvGJTZGRhE8RgE8ybcRQYcfxgOaHxmePWHgUHrqiADK9DZz/VwhxHMVR///Wf4Y/ge4iKQ4K0fTAxqHJCoLX/CzvDtHzPDZLlvYL7cZQEsEc7AEC/8g6FZ6gcijLCqIlGQqARJjJnD2CAAFVuCgRCtsMEAAAAASUVORK5CYII=" alt="" data-deferred="3" data-imglogged="true" data-aatf="4" style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 500; margin: 0px 2px 2px 0px; text-decoration: none; border-bottom: 0.8px solid rgb(220, 223, 229); object-fit: contain; width: 18px; height: 18px;" data-sae="" data-imgprocessed="true" data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 500; margin: 0px 2px 2px 0px; text-decoration: none; border-bottom: 0.8px solid rgb(220, 223, 229); object-fit: contain; width: 18px; height: 18px;"></span></span>⁠SoundCloud</a></span></span> sowie auf ihrem <span class="iNLQDb" data-sfc-cp="" data-sfc-root="c" data-sfc-cb="" data-complete="true" data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);" style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(10, 10, 10);"><span class="qNqJIe" data-sfc-cp="" data-sfc-root="c" data-sfc-cb="" data-complete="true" data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 500; margin: 0px; text-decoration: underline 1px rgb(21, 88, 214); border-bottom: 0px rgb(21, 88, 214);" style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 500; margin: 0px; text-decoration: underline 1px rgb(21, 88, 214); border-bottom: 0px rgb(21, 88, 214);"><a class="qNqJIe" target="_blank" rel="noopener" data-hveid="CAAIHBAL" href="https://www.youtube.com/channel/UCM8sE18nyCnDf44NJwmW3DA" data-sb="/url?sa=i&amp;source=web&amp;rct=j&amp;url=https://www.youtube.com/channel/UCM8sE18nyCnDf44NJwmW3DA&amp;ved=2ahUKEwizubm1wfaUAxUuzwIHHTu4La0Qy_kOegYIAAgcEAs&amp;opi=89978449&amp;cd&amp;psig=AOvVaw1cqE5hOliAFnZ2gIA96tGP&amp;ust=1780969200061000" data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 500; margin: 0px; text-decoration: underline 1px rgb(21, 88, 214); border-bottom: 0px rgb(21, 88, 214);" style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 500; margin: 0px; text-decoration: underline 1px rgb(21, 88, 214); border-bottom: 0px rgb(21, 88, 214);"><span role="button" tabindex="0" class="VJIUmc" aria-label="YouTube" data-ved="2ahUKEwizubm1wfaUAxUuzwIHHTu4La0Q2oAUegYIAAgcEAw" data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 500; margin: 0px; text-decoration: none; border-bottom: 0px rgb(21, 88, 214);" style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 500; margin: 0px; text-decoration: none; border-bottom: 0px rgb(21, 88, 214);"><span data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 500; margin: 0px; text-decoration: none; border-bottom: 0px rgb(21, 88, 214);" style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 500; margin: 0px; text-decoration: none; border-bottom: 0px rgb(21, 88, 214);"><img id="img-cB0marNBrp6L6A-78LbpCg_26" class="xQj6O" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAqklEQVQ4T2NkoBJgpJI5DNQ16D+D8X9KXMbIcJaREWjIeqAhAZQYxMDAuBhkEEWugTkAv0EtGQwMNTOIcix+g/6fgRjCaELQMOIMAhnzHxgCTKY4DSTeIAIuI86gpFoGhvnb8XoPv0FPtjAwyPgQDB+wY6kZ/TeBBqoRZS1ORf/vgPMapa4CZxFslvxnsORkYPjFjSn36y8DA88PRobj39HlqJv7KQsfiG4AB/I1fJZS0X4AAAAASUVORK5CYII=" alt="" data-deferred="3" data-imglogged="true" data-aatf="4" style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 500; margin: 0px 2px 2px 0px; text-decoration: none; border-bottom: 0.8px solid rgb(220, 223, 229); object-fit: contain; width: 18px; height: 18px;" data-sae="" data-imgprocessed="true" data-copy-service-computed-style="font-family: Google Sans, Arial, sans-serif; font-size: 16px; font-weight: 500; margin: 0px 2px 2px 0px; text-decoration: none; border-bottom: 0.8px solid rgb(220, 223, 229); object-fit: contain; width: 18px; height: 18px;"></span></span>⁠Milena Thought YouTube-Kanal</a></span></span>.</span><span>&nbsp;</span></li></ul></span></div></div></div></div></div></div></div></div></div></div></span></p><iframe src="https://www.youtube.com/watch?v=LbmMmCdwqQg" width="560" height="315" class="block"></iframe><h2 contenteditable="true" class="block">Kontakt:</h2><h2 contenteditable="true" class="block">Milena.thought@web.de</h2><div class="block" contenteditable="true"><br></div><h2 contenteditable="true" class="block">Best Of Milena Thought</h2><p contenteditable="true" class="block"><br></p><img src="https://www.dropbox.com/scl/fi/s4674q2b5wryjkr8225d1/Screenshot-56.png?rlkey=391c53mmp9j71h1k78x6mt7oj&amp;st=60jom7iv&amp;dl=0" class="block"><img src="https://www.dropbox.com/scl/fi/l41l1w8rg82w650snbo8t/Screenshot-57.png?rlkey=fr33j7tarx9vfxnnyuhmka2u8&amp;st=p9vk8bks&amp;dl=0" class="block"><img src="https://www.dropbox.com/scl/fi/oqabyu1ely37p52onthwh/Screenshot-58.png?rlkey=urp9cmw9wn6iprns4vrp2onxj&amp;st=jh800596&amp;dl=0" class="block"><p contenteditable="true" class="block"><br></p><p contenteditable="true" class="block">Youtube Song Links:<br><br>Leuchtturm:<br><br>https://youtu.be/tHT-sGRl2hA?si=F59yp4irK482sDMN<br><br>Flügel (Gitarrenversion)<br><br>https://youtu.be/Ga29h4XDjWQ?si=WqlQSxn5HAjQAN5w<br><br>Toxic Light (Soundtrack)<br><br>https://youtu.be/j8Q_U_YFgzg?si=eggs7bKR68FLH_tU<br><br><br><br><br></p></body></html>
-
-<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Milena Thought</title></head><body>
-<div class="hero">
-<h1 contenteditable="true">Milena Thought</h1>
-<p contenteditable="true">Musik • Kreativität • Projekte</p>
-</div>
-<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Milena Thought</title></head><body>
-<div class="hero">
-<h1 contenteditable="true">Milena Thought</h1>
-<p contenteditable="true">Musik • Kreativität • Projekte</p>
-</div>
-<p contenteditable="true" class="block"><span style="" class="ytAttributedStringHost ytAttributedStringWhiteSpacePreWrap" dir="auto" role="text"><br><img src="data:image/png;base64,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
+Verwende Code mit Vorsicht.// Entfernt die Editierbarkeit im exportierten Codeconst cleanHtml = html.replaceAll('contenteditable="true"', '');const blob = new Blob([cleanHtml], {type: 'text/html'});const a = document.createElement('a');a.href = URL.createObjectURL(blob);a.download = 'milena-thought-website.html';a.click();}
