@@ -1,13 +1,12 @@
-html<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Milena Thought Builder Pro</title>
+    <title>Milena Thought - Offizielle Webseite</title>
     <style>
         :root {
             --bg-main: #0b0f19;
-            --bg-sidebar: #111827;
             --bg-card: #1f2937;
             --text-main: #f9fafb;
             --text-muted: #9ca3af;
@@ -20,166 +19,144 @@ html<!DOCTYPE html>
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            scroll-behavior: smooth;
         }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background: var(--bg-main);
             color: var(--text-main);
-            display: flex;
-            height: 100vh;
-            overflow: hidden;
+            line-height: 1.6;
+            padding-top: 70px; /* Platz für fixierte Navigation */
         }
 
-        /* Sidebar Panel */
-        #sidebar {
-            width: 320px;
-            background: var(--bg-sidebar);
-            border-right: 1px solid var(--border);
-            padding: 24px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        #sidebar h2 {
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin-bottom: 4px;
-            color: #fff;
-            letter-spacing: -0.02em;
-        }
-
-        #sidebar p.hint {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-bottom: 16px;
-            line-height: 1.4;
-        }
-
-        /* Edle Buttons */
-        button {
+        /* Navigationsleiste oben */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            padding: 12px 16px;
-            background: var(--bg-card);
-            color: var(--text-main);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            cursor: pointer;
+            background: rgba(17, 24, 39, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+        }
+
+        nav {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: #fff;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
             font-weight: 500;
             font-size: 0.95rem;
-            text-align: left;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            transition: color 0.2s;
         }
 
-        button:hover {
-            background: var(--border);
-            border-color: var(--text-muted);
-            transform: translateY(-1px);
+        .nav-links a:hover {
+            color: var(--accent);
         }
 
-        button:active {
-            transform: translateY(0);
-        }
-
-        button.btn-primary {
-            background: var(--accent);
-            border-color: var(--accent);
-            justify-content: center;
-            margin-top: auto;
-            font-weight: 600;
-        }
-
-        button.btn-primary:hover {
-            background: var(--accent-hover);
-            border-color: var(--accent-hover);
-        }
-
-        /* Live Vorschau Bereich */
-        #preview {
-            flex: 1;
-            background: var(--bg-main);
-            padding: 40px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
+        /* Container & Sektionen */
+        .container {
             max-width: 900px;
             margin: 0 auto;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 60px;
         }
 
-        /* Design-Blöcke der generierten Webseite */
+        section {
+            scroll-margin-top: 90px;
+        }
+
+        /* Hero Bereich */
         .hero {
             background: linear-gradient(135deg, #1e1b4b 0%, #311042 100%);
             border: 1px solid #4338ca;
-            color: white;
-            padding: 48px;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
-            transition: border-color 0.2s;
+            padding: 60px 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
+            text-align: center;
         }
 
         .hero h1 {
-            font-size: 2.6rem;
+            font-size: 3rem;
             font-weight: 800;
-            margin-bottom: 8px;
-            outline: none;
+            margin-bottom: 12px;
             letter-spacing: -0.03em;
         }
 
         .hero p {
-            font-size: 1.15rem;
+            font-size: 1.25rem;
             color: #c7d2fe;
-            outline: none;
         }
 
+        /* Vorstellung mit Künstler-Bild (Zweispaltig) */
+        .about-grid {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 30px;
+            border-radius: 16px;
+        }
+
+        .about-image {
+            flex: 0 0 250px;
+            width: 250px;
+            height: 250px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 2px solid var(--accent);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+            background: #111827; /* Fallback-Hintergrund */
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text h2 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        /* Allgemeine Inhaltsboxen */
         .block {
             background: var(--bg-card);
             border: 1px solid var(--border);
-            padding: 24px;
-            border-radius: 12px;
-            line-height: 1.6;
-            color: var(--text-main);
-            outline: none;
-            font-size: 1.05rem;
-            transition: all 0.2s ease;
+            padding: 30px;
+            border-radius: 16px;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
 
-        /* Fokus-Rahmen beim Bearbeiten */
-        .block:focus, .hero h1:focus, .hero p:focus {
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
-            background: #253043;
-        }
-
-        h2.block {
-            font-size: 1.75rem;
+        .block h2 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
             font-weight: 700;
-            letter-spacing: -0.02em;
-        }
-
-        img.block {
-            padding: 0;
-            overflow: hidden;
-            max-width: 100%;
-            height: auto;
-            display: block;
-            border-radius: 12px;
-        }
-
-        iframe.block {
-            padding: 0;
-            border: none;
-            aspect-ratio: 16 / 9;
-            width: 100%;
-            height: auto;
-            border-radius: 12px;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
         }
 
         mark {
@@ -190,133 +167,129 @@ html<!DOCTYPE html>
             font-weight: 600;
         }
 
-        /* Listen-Design für den Steckbrief */
-        .block ul {
+        ul {
             margin-top: 14px;
             padding-left: 24px;
         }
 
-        .block li {
+        li {
             margin-bottom: 8px;
         }
         
-        .block li strong {
+        li strong {
             color: #c7d2fe;
+        }
+
+        /* Video Einbettung */
+        .video-container {
+            aspect-ratio: 16 / 9;
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border);
+            margin-top: 60px;
+        }
+
+        /* Responsive Anpassung für Mobilgeräte */
+        @media (max-width: 768px) {
+            .about-grid {
+                flex-direction: column;
+                text-align: center;
+            }
+            .nav-links {
+                gap: 10px;
+            }
+            .nav-links a {
+                font-size: 0.85rem;
+            }
+            .hero h1 {
+                font-size: 2.2rem;
+            }
         }
     </style>
 </head>
 <body>
 
-<div id="sidebar">
-    <h2>Thought Builder Pro</h2>
-    <p class="hint">Texte anklicken und direkt schreiben. Eingefügter Text wird automatisch von HTML-Code gesäubert.</p>
-    
-    <button onclick="addHero()">⚡ Hero Bereich</button>
-    <button onclick="addTitle()">📝 Große Überschrift</button>
-    <button onclick="addText()">✍️ Textabsatz</button>
-    <button onclick="addImage()">🖼️ Bild hinzufügen</button>
-    <button onclick="addVideo()">🎬 YouTube Video</button>
-    <button onclick="toggleLang()">🌐 Sprache: DE / EN</button>
-    
-    <button class="btn-primary" onclick="exportSite()">💾 Website exportieren</button>
-</div>
+    <!-- Header / Navigation -->
+    <header>
+        <nav>
+            <div class="logo">Milena Thought</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">Über mich</a></li>
+                <li><a href="#music">Musik</a></li>
+                <li><a href="#contact">Kontakt</a></li>
+            </ul>
+        </nav>
+    </header>
 
-<div id="preview">
-    <!-- Vorgefertigter, sauberer Inhalt -->
-    <div class="hero">
-        <h1 contenteditable="true">Milena Thought</h1>
-        <p contenteditable="true">Musik • Kreativität • Projekte</p>
+    <div class="container">
+
+        <!-- Sektion 1: Home (Hero-Bereich) -->
+        <section id="home" class="hero">
+            <h1>Milena Thought</h1>
+            <p>Musik • Kreativität • Projekte</p>
+        </section>
+
+        <!-- Sektion 2: Über mich (Mit Künstler-Bild) -->
+        <section id="about" class="about-grid">
+            <!-- Tauschen Sie 'artist-profile.jpg' durch den echten Pfad Ihres Profilbildes aus -->
+            <img src="artist-profile.jpg" alt="Milena Thought" class="about-image" onerror="this.src='https://unsplash.com'">
+            <div class="about-text">
+                <h2>Über die Künstlerin</h2>
+                <p>
+                    <mark>Milena Thought</mark> ist der Künstlername einer unabhängigen deutschen Musikproduzentin, Singer-Songwriterin und digitalen Schöpferin aus Karlsruhe.
+                </p>
+                <p style="margin-top: 10px;">
+                    Sie kreiert und produziert ihre Musik komplett eigenständig im Homestudio mit der Software Ableton Live. Stilistisch bewegt sie sich in einer Nische aus experimenteller elektronischer Musik, Indie-Pop, Dark Wave und Gothic Rock.
+                </p>
+            </div>
+        </section>
+
+        <!-- Sektion 3: Musik & Releases -->
+        <section id="music" class="block">
+            <h2>Musik &amp; Veröffentlichungen</h2>
+            <p>Ihre Songs zeichnen sich durch emotionale, tiefgründige Liedtexte sowie atmosphärische Klangeigenschaften und eingängige Melodien aus.</p>
+            
+            <!-- Platzhalter für Ihr Video oder Ihre Releases -->
+            <div class="video-container">
+                <!-- Ersetzen Sie diese URL durch Ihren echten YouTube-Einbettungslink, falls vorhanden -->
+                <iframe src="https://youtube.com" allowfullscreen></iframe>
+            </div>
+        </section>
+
+        <!-- Sektion 4: Steckbrief & Kontakt -->
+        <section id="contact" class="block">
+            <h2>Steckbrief &amp; Details</h2>
+            <ul>
+                <li><strong>Herkunft:</strong> Karlsruhe, Deutschland</li>
+                <li><strong>Arbeitsweise:</strong> Do-It-Yourself (Schreiben, Gesang, Sounddesign &amp; Produktion)</li>
+                <li><strong>Kontakt für Anfragen:</strong> info@milena-thought.de</li>
+            </ul>
+        </section>
+
     </div>
-    
-    <p contenteditable="true" class="block">
-        <mark>Milena Thought</mark> ist der Künstlername einer unabhängigen deutschen Musikproduzentin, Singer-Songwriterin und digitalen Schöpferin aus Karlsruhe.
-    </p>
-    
-    <p contenteditable="true" class="block">
-        Sie kreiert und produziert ihre Musik komplett eigenständig im Homestudio mit der Software Ableton Live. Stilistisch bewegt sie sich in einer Nische aus experimenteller elektronischer Musik, Indie-Pop, Dark Wave und Gothic Rock. Ihre Songs zeichnen sich durch emotionale, tiefgründige Liedtexte sowie atmosphärische Klangeigenschaften und eingängige Melodien aus.
-    </p>
 
-    <div contenteditable="true" class="block">
-        <strong>Steckbrief &amp; Musikalische Eckpunkte</strong>
-        <ul>
-            <li><strong>Herkunft:</strong> Karlsruhe, Deutschland</li>
-            <li><strong>Arbeitsweise:</strong> Do-It-Yourself (Schreiben, Gesang, Sounddesign &amp; Produktion)</li>
-        </ul>
-    </div>
-</div>
+    <!-- Footer mit Impressumshinweis -->
+    <footer>
+        <p>&copy; 2026 Milena Thought. Alle Rechte vorbehalten.</p>
+        <p style="font-size: 0.8rem; margin-top: 5px;">Karlsruhe, Deutschland | <a href="#contact" style="color: var(--text-muted); text-decoration: underline;">Impressum & Datenschutz</a></p>
+    </footer>
 
-<script>
-    const preview = document.getElementById('preview');
-
-    // Schutz vor Code-Müll: Wandelt Formatiertes beim Einfügen (Strg+V) in sauberen Text um
-    preview.addEventListener('paste', function(e) {
-        e.preventDefault();
-        const text = (e.originalEvent || e).clipboardData.getData('text/plain');
-        document.execCommand('insertText', false, text);
-    });
-
-    function addTitle(){
-        let e = document.createElement('h2');
-        e.contentEditable = true;
-        e.className = 'block';
-        e.innerText = 'Neue Überschrift';
-        preview.appendChild(e);
-    }
-
-    function addText(){
-        let e = document.createElement('p');
-        e.contentEditable = true;
-        e.className = 'block';
-        e.innerText = 'Hier neuen Textabsatz eintragen...';
-        preview.appendChild(e);
-    }
-
-    function addImage(){
-        let url = prompt("Bild-URL eingeben:");
-        if(!url) return;
-        let e = document.createElement('img');
-        e.src = url;
-        e.className = 'block';
-        preview.appendChild(e);
-    }
-
-    function addVideo(){
-        let url = prompt("YouTube Link eingeben:");
-        if(!url) return;
-        
-        // Repariert normale YouTube-Links für Iframes automatisch
-        if(url.includes("watch?v=")) {
-            url = url.replace("watch?v=", "embed/");
-        } else if(url.includes("youtu.be/")) {
-            url = url.replace("youtu.be/", "://youtube.com");
-        }
-        
-        let iframe = document.createElement('iframe');
-        iframe.src = url;
-        iframe.className = 'block';
-        iframe.setAttribute('allowfullscreen', 'true');
-        preview.appendChild(iframe);
-    }
-
-    function addHero(){
-        let d = document.createElement('div');
-        d.className = 'hero';
-        d.innerHTML = '<h1 contenteditable="true">Neue Sektion</h1><p contenteditable="true">Untertitel oder Slogan bearbeiten</p>';
-        preview.appendChild(d);
-    }
-
-    function toggleLang(){
-        alert("Die Sprachumschaltung wird in einer zukünftigen Version implementiert.");
-    }
-
-    function exportSite(){
-        // Erstellt das finale HTML-Dokument inklusive des modernen CSS-Stylesheets
-        const html = `<!DOCTYPE html>
-<html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Milena Thought</title>
-    <style>
-        body { font-family: sans-serif; background: #0b0f19; color: #f9fafb; padding: 40px; display: flex; flex-direction: column; gap: 24px; max-width: 900px; margin: 0 auto; }
-Verwende Code mit Vorsicht..hero { background: linear-gradient(135deg, #1e1b4b 0%, #311042 100%); border: 1px solid #4338ca; padding: 48px; border-radius: 16px; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.4); }.hero h1 { font-size: 2.6rem; margin-bottom: 8px; font-weight: 800; letter-spacing: -0.03em; }.hero p { color: #c7d2fe; font-size: 1.15rem; }.block { background: #1f2937; border: 1px solid #374151; padding: 24px; border-radius: 12px; line-height: 1.6; font-size: 1.05rem; }h2.block { font-size: 1.75rem; font-weight: 700; }mark { background: #6366f1; color: white; padding: 2px 6px; border-radius: 4px; font-weight: 600; }ul { margin-top: 14px; padding-left: 24px; }li { margin-bottom: 8px; }li strong { color: #c7d2fe; }img.block { max-width: 100%; height: auto; border-radius: 12px; display: block; }iframe.block { border: none; aspect-ratio: 16/9; width: 100%; border-radius: 12px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3); }${preview.innerHTML}`;// Entfernt sauber die Editier-Attribute für die Live-Seiteconst cleanHtml = html.replaceAll('contenteditable="true"', '');const blob = new Blob([cleanHtml], {type: 'text/html'});const a = document.createElement('a');a.href = URL.createObjectURL(blob);a.download = 'milena-thought-website.html';a.click();}
+</body>
+</html>
