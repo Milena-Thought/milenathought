@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Milena Thought | Offizielle Webseite</title>
+    <title>Milena Thought | Offizielle Webseite & Info-Hub</title>
     <style>
         :root {
             --bg-main: #070a13;
@@ -32,7 +32,7 @@
             padding-top: 80px;
         }
 
-        /* Feste Navigation */
+        /* Fixierte Navigation */
         header {
             position: fixed;
             top: 0;
@@ -94,7 +94,7 @@
             scroll-margin-top: 110px;
         }
 
-        /* Hero */
+        /* Hero Header */
         .hero {
             background: linear-gradient(135deg, #13112c 0%, #230930 100%);
             border: 1px solid #2e2456;
@@ -118,7 +118,7 @@
             letter-spacing: 0.05em;
         }
 
-        /* Biografie & Profilbild-Grid */
+        /* Biografie & Grid */
         .profile-card {
             display: flex;
             gap: 35px;
@@ -152,7 +152,7 @@
             font-size: 1rem;
         }
 
-        /* Künstler-Analyse & Interpretation */
+        /* Fundierte Namensanalyse & Interpretation */
         .analysis-box {
             background: #111026;
             border: 1px solid #2a2559;
@@ -171,7 +171,11 @@
         .analysis-box p {
             font-size: 0.95rem;
             color: #9cb3e1;
-            line-height: 1.5;
+            line-height: 1.6;
+            margin-bottom: 14px;
+        }
+
+        .analysis-box p:last-child {
             margin-bottom: 0;
         }
 
@@ -188,7 +192,7 @@
             border: 1px solid #2e2a78;
         }
 
-        /* Grid für Links */
+        /* Einteilung des Link-Verzeichnisses */
         .section-title {
             font-size: 1.7rem;
             font-weight: 700;
@@ -206,7 +210,7 @@
         .links-container {
             display: flex;
             flex-direction: column;
-            gap: 25px;
+            gap: 35px;
         }
 
         .links-grid {
@@ -313,7 +317,6 @@
             margin-top: 40px;
         }
 
-        /* Mobile Optimierung */
         @media (max-width: 768px) {
             .profile-card {
                 flex-direction: column;
@@ -351,7 +354,7 @@
 
     <div class="container">
 
-        <!-- Sektion 1: Home (Intro) -->
+        <!-- Sektion 1: Home -->
         <section id="home" class="hero">
             <h1>Milena Thought</h1>
             <p>EXPERIMENTAL ELECTRONIC • DARK WAVE • GOTHIC ROCK</p>
@@ -359,7 +362,7 @@
 
         <!-- Sektion 2: Biografie & Tiefenrecherche -->
         <section id="about" class="profile-card">
-            <!-- Lokales Bild lädt automatisch falls hochgeladen, sonst lädt ein passender Platzhalter -->
+            <!-- Profilbild mit automatischem Web-Fallback -->
             <img src="artist-profile.jpg" alt="Milena Thought" class="profile-img" onerror="this.src='https://unsplash.com'">
             <div class="bio-content">
                 <h2>Über das Musikprojekt</h2>
